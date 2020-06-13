@@ -1,0 +1,14 @@
+#app {
+  margin: 1rem;
+}
+
+body {
+  margin: 2rem;
+  font-family: raleway;
+}
+
+.h1 {
+  font-family: raleway;
+  text-align: center;
+  font-weight: 400;
+}

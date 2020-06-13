@@ -1,12 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>T-Shirts</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  
-  
+  <div id="app">
+    <div class="h1"> T-Shirts</div>
+    <div class="row row-cols-1 row-cols-md-3">
+      <div class="card" v-for="tshirt in tshirts">
+        <img :src="`images/${tshirt.image}`" class="card-img-top">
+        <div class="card-body">
+          <h5 class="card-title"> {{tshirt.title}} </h5>
+          <p class="card-text"> <strong> ${{ tshirt.price}}</strong>
+          </p>
+          <p class="card-text" v-if="tshirt.stock > 0">
+            {{ tshirt.stock}} Left!
+          </p>
+
+          <p class=" card-text" v-else>
+            <strike style="color: red;"> Out of Stock</strike>
+          </p>
+          <p class=" card-text">
+            More Coming in <strong> {{nextShipment(tshirt.nextShipment)}}</strong>
+          </p>
+          <a href="#" class="btn btn-primary" v-if="tshirt.stock>0" v-on:click="tshirt.stock--">Buy</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src=" https://cdn.jsdelivr.net/npm/vue/dist/vue.js"> </script>
+  <script src="t-shirts.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        tshirts: tshirts,
+
+
+      },
+
+
+
+
+      methods: {
+        nextShipment: function (date) {
+          const shipment = (new Date(date.year, date.month, date.day)).getTime()
+          const now = (new Date()).getTime()
+          const difference = shipment - now
+          return Math.floor(difference / 1000 / 60 / 60 / 24)
+        }
+      }
+
+
+
+
+    })
+  </script>
+
 </body>
+
 </html>
